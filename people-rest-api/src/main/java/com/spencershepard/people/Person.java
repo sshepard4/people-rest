@@ -29,6 +29,13 @@ public class Person {
     private String gender;
 
     /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
      * @return the firstName
      */
     public String getFirstName() {
@@ -101,12 +108,5 @@ public class Person {
     public Person setGender(String gender) {
         this.gender = gender;
         return this;
-    }
-
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
     }
 }

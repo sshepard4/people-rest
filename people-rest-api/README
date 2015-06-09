@@ -1,10 +1,22 @@
-Based off the Accessing JPA Data with REST Sptring data guide
+Author:  Spencer Shepard
 
+===========
+Create a REST API that can create, read, update, and delete "People" using any of the Spring projects and an in-memory database for persistence.  Track your changes/progress using GitHub, and share the GitHub repository with us when you’re done.  For extra credit, add other REST API endpoints to group “People” into “Families.”  If you’re someone who always goes above and beyond, or thought that was too easy, optionally build a simple front end to add, update, delete and list the people.
+===========
+
+Solution:
+
+Based off the Accessing JPA Data with REST Spring data guide
 http://spring.io/guides/gs/accessing-data-rest/
+
+Getting Started with Maven:
 
 mvn compile
 mvn package
 mvn spring-boot:run
+
+
+Example REST requests:
 
 curl http://localhost:8080/people
 curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "birthDate" : "7-4-1776",  "address" : "123 Sesame St", "gender" : "male"}' http://localhost:8080/people
