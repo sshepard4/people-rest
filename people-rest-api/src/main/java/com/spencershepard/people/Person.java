@@ -1,9 +1,18 @@
 package com.spencershepard.people;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 /**
  * Model object for "People" or a person.
@@ -22,11 +31,14 @@ public class Person {
     
     private String lastName;
     
-    private String birthDate;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate birthDate;
     
     private String address;
     
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     /**
      * @return the id
@@ -68,14 +80,14 @@ public class Person {
     /**
      * @return the birthDate
      */
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
     /**
      * @param birthDate the birthDate to set
      */
-    public Person setBirthDate(String birthDate) {
+    public Person setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
         return this;
     }
@@ -98,14 +110,14 @@ public class Person {
     /**
      * @return the gender
      */
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
     /**
      * @param gender the gender to set
      */
-    public Person setGender(String gender) {
+    public Person setGender(Gender gender) {
         this.gender = gender;
         return this;
     }

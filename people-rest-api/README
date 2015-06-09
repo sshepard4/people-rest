@@ -1,7 +1,7 @@
 Author:  Spencer Shepard
 
 ===========
-Create a REST API that can create, read, update, and delete "People" using any of the Spring projects and an in-memory database for persistence.  Track your changes/progress using GitHub, and share the GitHub repository with us when you’re done.  For extra credit, add other REST API endpoints to group “People” into “Families.”  If you’re someone who always goes above and beyond, or thought that was too easy, optionally build a simple front end to add, update, delete and list the people.
+Create a REST API that can create, read, update, and delete "People" using any of the Spring projects and an in-memory database for persistence.  Track your changes/progress using GitHub, and share the GitHub repository with us when youï¿½re done.  For extra credit, add other REST API endpoints to group ï¿½Peopleï¿½ into ï¿½Families.ï¿½  If youï¿½re someone who always goes above and beyond, or thought that was too easy, optionally build a simple front end to add, update, delete and list the people.
 ===========
 
 Solution:
@@ -18,9 +18,22 @@ mvn spring-boot:run
 
 Example REST requests:
 
+List all people:
 curl http://localhost:8080/people
-curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "birthDate" : "7-4-1776",  "address" : "123 Sesame St", "gender" : "male"}' http://localhost:8080/people
+
+Add People:
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "birthDate" : "1776-07-04",  "address" : "123 Sesame St", "gender" : "MALE"}' http://localhost:8080/people
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Amy",  "lastName" : "Smith", "birthDate" : "1998-11-12",  "address" : "1 A Ave", "gender" : "FEMALE"}' http://localhost:8080/people
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Ben",  "lastName" : "Williams", "birthDate" : "2005-10-14",  "address" : "45 Main St", "gender" : "MALE"}' http://localhost:8080/people
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Cindy",  "lastName" : "Brady", "birthDate" : "2010-12-31",  "address" : "67 Oak St", "gender" : "FEMALE"}' http://localhost:8080/people
+
 curl http://localhost:8080/people/search/findByLastName?name=Baggins
-curl -i -X PUT -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "birthDate" : "7-4-1776",  "address" : "123 Sesame St", "gender" : "male"}' http://localhost:8080/people/1
+
+curl -i -X PUT -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "birthDate" : "1776-07-04",  "address" : "123 Sesame St", "gender" : "MALE"}' http://localhost:8080/people/1
+
 curl -i -X PATCH -H "Content-Type:application/json" -d '{  "lastName" : "Baggins 2"}' http://localhost:8080/people/1
+
 curl -X DELETE http://localhost:8080/people/1
+
+Find all families where person with a matching ID is the father
+curl http://localhost:8080/family/search/findByFatherId?id=1
