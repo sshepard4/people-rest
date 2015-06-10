@@ -9,6 +9,12 @@ Solution:
 Based off the Accessing JPA Data with REST Spring data guide
 http://spring.io/guides/gs/accessing-data-rest/
 
+Uses Spring MVC, JPA Data, and REST to configure the application with H2 used for in-memory database persistence.
+
+Usage:
+
+A Person object consists of first and last name, address, birth date, and gender.  To retrieve a list of all people in the system, use the path and /people.
+
 Getting Started with Maven:
 
 mvn compile
@@ -27,13 +33,23 @@ curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Amy",  
 curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Ben",  "lastName" : "Williams", "birthDate" : "2005-10-14",  "address" : "45 Main St", "gender" : "MALE"}' http://localhost:8080/people
 curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Cindy",  "lastName" : "Brady", "birthDate" : "2010-12-31",  "address" : "67 Oak St", "gender" : "FEMALE"}' http://localhost:8080/people
 
+Search by Last Name:
 curl http://localhost:8080/people/search/findByLastName?name=Baggins
 
+Replace the person with the given ID
 curl -i -X PUT -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "birthDate" : "1776-07-04",  "address" : "123 Sesame St", "gender" : "MALE"}' http://localhost:8080/people/1
 
+Update the person with the given ID
 curl -i -X PATCH -H "Content-Type:application/json" -d '{  "lastName" : "Baggins 2"}' http://localhost:8080/people/1
+
 
 curl -X DELETE http://localhost:8080/people/1
 
 Find all families where person with a matching ID is the father
 curl http://localhost:8080/family/search/findByFatherId?id=1
+
+TODO:
+
+1.  Improve error handling for malformed data.
+2.  Family JSON data needs to be mapped to Person IDs to be useful
+3.  Use AngularJS to write some simple HTML pages for CRUD.
