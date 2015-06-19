@@ -1,6 +1,8 @@
 package com.spencershepard;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -50,6 +52,10 @@ public class ApplicationTest {
 
     private MockMvc mockMvc;
 
+    private Person father;
+    
+    private Family family;
+    
     private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
     @Autowired
@@ -82,16 +88,16 @@ public class ApplicationTest {
         this.familyRepository.deleteAll();
         this.personRepository.deleteAll();
 
-        Person father = personRepository.save(new Person().setFirstName("Al").setLastName("Bundy")
-                .setBirthDate(LocalDate.of(1960, 1, 2)).setAddress("123 Sesame St").setGender(Gender.MALE));
+        father = personRepository.save(new Person().setFirstName("Al").setLastName("Bundy")
+                .setBirthDate(LocalDate.of(1960, 1, 2)).setAddress("123 Sesame St").setGender(Gender.male));
         Person mother = personRepository.save(new Person().setFirstName("Peg").setLastName("Bundy")
-                .setBirthDate(LocalDate.of(1981, 2, 28)).setAddress("123 Sesame St").setGender(Gender.FEMALE));
+                .setBirthDate(LocalDate.of(1981, 2, 28)).setAddress("123 Sesame St").setGender(Gender.female));
         Set<Person> children = new HashSet<>();
         children.add(personRepository.save(new Person().setFirstName("Christina").setLastName("Applegate")
-                .setBirthDate(LocalDate.of(2001, 3, 31)).setAddress("123 Sesame St").setGender(Gender.MALE)));
+                .setBirthDate(LocalDate.of(2001, 3, 31)).setAddress("123 Sesame St").setGender(Gender.male)));
         children.add(personRepository.save(new Person().setFirstName("Bud").setLastName("Williams")
-                .setBirthDate(LocalDate.of(2010, 4, 30)).setAddress("123 Sesame St").setGender(Gender.FEMALE)));
-        familyRepository.save(new Family().setFather(father).setMother(mother).setChildren(children));
+                .setBirthDate(LocalDate.of(2010, 4, 30)).setAddress("123 Sesame St").setGender(Gender.female)));
+        family = familyRepository.save(new Family().setFather(father).setMother(mother).setChildren(children));
     }
     
     /**
@@ -108,14 +114,28 @@ public class ApplicationTest {
                 .andExpect(jsonPath("$._embedded.people[0].lastName", is("Bundy")))
                 .andExpect(jsonPath("$._embedded.people[0].birthDate", is("1960-01-02")))
                 .andExpect(jsonPath("$._embedded.people[0].address", is("123 Sesame St")))
-                .andExpect(jsonPath("$._embedded.people[0].gender", is("MALE")))
+                .andExpect(jsonPath("$._embedded.people[0].gender", is("male")))
                 .andExpect(jsonPath("$._embedded.people[1].firstName", is("Peg")))
                 .andExpect(jsonPath("$._embedded.people[1].lastName", is("Bundy")))
                 .andExpect(jsonPath("$._embedded.people[1].birthDate", is("1981-02-28")))
                 .andExpect(jsonPath("$._embedded.people[1].address", is("123 Sesame St")))
-                .andExpect(jsonPath("$._embedded.people[1].gender", is("FEMALE")));
+                .andExpect(jsonPath("$._embedded.people[1].gender", is("female")));
     }
 
+    /**
+     * Test deleting a person that is a father from a family.  Should be successful and leave family with a null father.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void deleteFather() throws Exception {
+        // Need to delete family first to avoid referential constraint
+        mockMvc.perform(delete("/family/" + family.getId())).andExpect(status().isNoContent());
+        mockMvc.perform(delete("/people/" + father.getId())).andExpect(status().isNoContent());
+        Family updatedFamily = familyRepository.findOne(family.getId());
+        assertNull(updatedFamily);
+    }
+    
     /**
      * Convert object to JSON string
      * 

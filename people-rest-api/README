@@ -28,10 +28,10 @@ List all people:
 curl http://localhost:8080/people
 
 Add People:
-curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "birthDate" : "1776-07-04",  "address" : "123 Sesame St", "gender" : "MALE"}' http://localhost:8080/people
-curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Amy",  "lastName" : "Smith", "birthDate" : "1998-11-12",  "address" : "1 A Ave", "gender" : "FEMALE"}' http://localhost:8080/people
-curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Ben",  "lastName" : "Williams", "birthDate" : "2005-10-14",  "address" : "45 Main St", "gender" : "MALE"}' http://localhost:8080/people
-curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Cindy",  "lastName" : "Brady", "birthDate" : "2010-12-31",  "address" : "67 Oak St", "gender" : "FEMALE"}' http://localhost:8080/people
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Frodo",  "lastName" : "Baggins", "birthDate" : "1776-07-04",  "address" : "123 Sesame St", "gender" : "male"}' http://localhost:8080/people
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Amy",  "lastName" : "Smith", "birthDate" : "1998-11-12",  "address" : "1 A Ave", "gender" : "female"}' http://localhost:8080/people
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Ben",  "lastName" : "Williams", "birthDate" : "2005-10-14",  "address" : "45 Main St", "gender" : "male"}' http://localhost:8080/people
+curl -i -X POST -H "Content-Type:application/json" -d '{  "firstName" : "Cindy",  "lastName" : "Brady", "birthDate" : "2010-12-31",  "address" : "67 Oak St", "gender" : "female"}' http://localhost:8080/people
 
 Search by Last Name:
 curl http://localhost:8080/people/search/findByLastName?name=Baggins

@@ -2,12 +2,14 @@ package com.spencershepard.family;
 
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.spencershepard.people.Person;
 
@@ -18,15 +20,18 @@ import com.spencershepard.people.Person;
  *
  */
 @Entity
+@Table(name = "family")
 public class Family {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)    
     private long id;
 
+    @Nullable
     @ManyToOne
     private Person father;
     
+    @Nullable
     @ManyToOne
     private Person mother;
     
@@ -51,7 +56,7 @@ public class Family {
      * @param father the father to set
      */
     public Family setFather(Person father) {
-        this.father = father;
+        this.father = father;        
         return this;
     }
 

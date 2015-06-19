@@ -7,5 +7,5 @@ package com.spencershepard.people;
  *
  */
 public enum Gender {
-    FEMALE, MALE
+    female, male
 }

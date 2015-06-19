@@ -31,14 +31,14 @@ public class Application {
     CommandLineRunner init(PersonRepository personRepository, FamilyRepository familyRepository) {
         return (evt) -> {
             Person father = personRepository.save(new Person().setFirstName("Al").setLastName("Bundy")
-                    .setBirthDate(LocalDate.of(1960, 1, 2)).setAddress("123 Sesame St").setGender(Gender.MALE));
+                    .setBirthDate(LocalDate.of(1960, 1, 2)).setAddress("123 Sesame St").setGender(Gender.male));
             Person mother = personRepository.save(new Person().setFirstName("Peg").setLastName("Bundy")
-                    .setBirthDate(LocalDate.of(1981, 2, 28)).setAddress("123 Sesame St").setGender(Gender.FEMALE));
+                    .setBirthDate(LocalDate.of(1981, 2, 28)).setAddress("123 Sesame St").setGender(Gender.female));
             Set<Person> children = new HashSet<>();
             children.add(personRepository.save(new Person().setFirstName("Christina").setLastName("Applegate")
-                    .setBirthDate(LocalDate.of(2001, 3, 31)).setAddress("123 Sesame St").setGender(Gender.FEMALE)));
+                    .setBirthDate(LocalDate.of(2001, 3, 31)).setAddress("123 Sesame St").setGender(Gender.female)));
             children.add(personRepository.save(new Person().setFirstName("Bud").setLastName("Williams")
-                    .setBirthDate(LocalDate.of(2010, 4, 30)).setAddress("123 Sesame St").setGender(Gender.MALE)));
+                    .setBirthDate(LocalDate.of(2010, 4, 30)).setAddress("123 Sesame St").setGender(Gender.male)));
             familyRepository.save(new Family().setFather(father).setMother(mother).setChildren(children));
         };
     }

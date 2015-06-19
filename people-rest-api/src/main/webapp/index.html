@@ -1,20 +1,44 @@
 <!doctype html>
 <html ng-app>
-	<head>
-		<title>Hello AngularJS</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    	<script src="js/people.js"></script>
-	</head>
+<head>
+<title>Hello AngularJS</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script src="js/people.js"></script>
+<style>
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
 
-	<body>
-		<div ng-controller="People">
-			<div ng-repeat="p in person">
-				<p>First Name: {{p.firstName}}</p>
-				<p>Last Name: {{p.lastName}}</p>
-				<p>Birth date: {{p.birthDate}}</p>
-				<p>Address: {{p.address}}</p>
-				<p>Gender: {{p.gender}}</p>
-			</div>
-		</div>
-	</body>
+th, td {
+	padding: 5px;
+	text-align: left;
+}
+</style>
+</head>
+<body ng-controller="People">
+	<table>
+		<caption>List of People</caption>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Birth date</th>
+			<th>Address</th>
+			<th>Gender</th>
+		</tr>
+		<tr ng-repeat="p in person">
+			<td>{{p.firstName}}</td>
+			<td>{{p.lastName}}</td>
+			<td>{{p.birthDate}}</td>
+			<td>{{p.address}}</td>
+			<td>{{p.gender}}</td>
+			<td><input type="button"
+				value="Remove" class="btn btn-primary"
+				ng-click="removeRow(p)" /></td>
+		</tr>
+	</table>
+</body>
 </html>
